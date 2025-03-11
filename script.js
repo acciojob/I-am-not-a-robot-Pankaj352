@@ -1,4 +1,3 @@
-//your code here
 const images = [
   "https://picsum.photos/id/237/200/300",
   "https://picsum.photos/seed/picsum/200/300",
@@ -26,6 +25,7 @@ function renderImages() {
   shuffledImages.forEach((src, index) => {
     const img = document.createElement("img");
     img.src = src;
+    img.classList.add(`img${index + 1}`); // Assign unique class names
     img.dataset.index = index;
     img.addEventListener("click", () => selectImage(img, src));
     container.appendChild(img);
@@ -67,6 +67,8 @@ document.getElementById("verify").addEventListener("click", () => {
   document.getElementById("verify").style.display = "none";
 });
 
-// Initialize the game on page load
-shuffleImages();
-renderImages();
+// Ensure images are loaded before Cypress starts tests
+document.addEventListener("DOMContentLoaded", () => {
+  shuffleImages();
+  renderImages();
+});
